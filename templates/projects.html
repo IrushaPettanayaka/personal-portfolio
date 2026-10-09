@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}{{ copy.projects_heading }} — {{ profile.name }}{% endblock %}
+{% block description %}Explore Irusha Pettanayaka’s selected applications, team work, Python practice, and course exercises, with source links and clear contribution notes.{% endblock %}
+{% block social_title %}Projects — Irusha Pettanayaka{% endblock %}
+{% block social_description %}Applications, collaborative work, and Python exercises from a computing student exploring mathematics, AI, and data engineering.{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/projects.js') }}" defer></script>{% endblock %}
+{% block content %}
+<section class="projects-page" aria-labelledby="projects-title">
+    <header class="page-introduction">
+        <a class="quiet-link home-link" href="{{ url_for('index') }}"><span aria-hidden="true">←</span> {{ copy.back_home }}</a>
+        <p class="eyebrow">{{ copy.projects_page_label }}</p>
+        <h1 id="projects-title">{{ copy.projects_heading }}</h1>
+        <p class="secondary">{{ copy.projects_page_intro }}</p>
+    </header>
+    <!-- Controls appear only after initialization; static HTML always shows every project. -->
+    <div class="project-filters" role="group" aria-label="{{ copy.filter_label }}" hidden>
+        {% for filter in filters %}
+        <button type="button" data-filter="{{ filter.key }}" aria-pressed="{{ 'true' if filter.key == 'all' else 'false' }}" aria-controls="project-archive">{{ filter.label }}</button>
+        {% endfor %}
+    </div>
+    <p class="archive-count" role="status" aria-live="polite" aria-atomic="true"><span id="project-count">{{ projects|length }}</span> {{ copy.project_count_label }}</p>
+    <div class="project-archive" id="project-archive">
+        {% set project_number = namespace(value=0) %}
+        {% for section in project_sections %}
+        <section class="project-group" data-project-group aria-labelledby="group-{{ section.key }}">
+            <header class="project-group-heading">
+                <h2 id="group-{{ section.key }}">{{ section.label }}</h2>
+                <p>{{ section.description }}</p>
+            </header>
+            {% for project in section.projects %}
+            {% set project_number.value = project_number.value + 1 %}
+            <article class="project-card" id="{{ project.slug }}" data-category="{{ project.filter }}" aria-labelledby="title-{{ project.slug }}">
+                <p class="project-number" aria-hidden="true">{{ '%02d'|format(project_number.value) }}</p>
+                <div class="project-name">
+                    <p class="eyebrow">{{ project.category }}</p>
+                    <h3 id="title-{{ project.slug }}"><a href="{{ project.source_url }}">{{ project.title }}</a></h3>
+                </div>
+                <div class="project-details">
+                    <p class="project-summary">{{ project.summary }}</p>
+                    {% if project.note %}<p class="contribution-note">{{ project.note }}</p>{% endif %}
+                    <ul class="technology-list" aria-label="{{ project.title }} technologies">
+                        {% for technology in project.technologies %}<li>{{ technology }}</li>{% endfor %}
+                    </ul>
+                </div>
+                <a class="source-link" href="{{ project.source_url }}" aria-label="View {{ project.title }} source on GitHub">Source <span aria-hidden="true">↗</span></a>
+            </article>
+            {% endfor %}
+        </section>
+        {% endfor %}
+    </div>
+    <a class="quiet-link return-link" href="{{ url_for('index') }}"><span aria-hidden="true">←</span> {{ copy.back_home }}</a>
+</section>
+{% endblock %}

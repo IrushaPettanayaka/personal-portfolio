@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Page not found — {{ profile.name }}{% endblock %}
+
+{% block content %}
+<section class="not-found">
+    <p class="eyebrow">404 / Page not found</p>
+    <h1>{{ copy.not_found_title }}</h1>
+    <p class="secondary">{{ copy.not_found_text }}</p>
+    <a class="text-link" href="{{ url_for('projects') }}">{{ copy.projects_link }} <span aria-hidden="true">↗</span></a>
+</section>
+{% endblock %}

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0c0d0f">
+    <meta name="description" content="{% block description %}{{ profile.introduction }}{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ profile.name }} — Portfolio">
+    <meta property="og:title" content="{% block social_title %}{{ profile.name }} — {{ copy.site_title }}{% endblock %}">
+    <meta property="og:description" content="{% block social_description %}{{ profile.introduction }}{% endblock %}">
+    <meta property="og:image" content="{{ url_for('static', filename='images/social-preview.png', _external=True) }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Irusha Pettanayaka portfolio — Drawn to mathematics. Learning through code.">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>{% block title %}{{ profile.name }} — {{ copy.site_title }}{% endblock %}</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.svg') }}" type="image/svg+xml">
+    <link rel="preload" href="{{ url_for('static', filename='fonts/Manrope-Variable.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <script>
+        (() => {
+            try {
+                const savedTheme = localStorage.getItem('portfolio-theme');
+                if (savedTheme === 'dark' || savedTheme === 'light') {
+                    document.documentElement.dataset.theme = savedTheme;
+                }
+            } catch (error) {
+                // The default dark theme remains available when storage is blocked.
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+    {% block scripts %}{% endblock %}
+</head>
+<body>
+    <a class="skip-link" href="#main">{{ copy.skip_link }}</a>
+    <div class="page-shell">
+        <header class="site-header">
+            <a class="brand" href="{{ url_for('index') }}" aria-label="{{ profile.name }} — home">
+                <span>{{ profile.name }}</span>
+                <small>{{ copy.site_title }} · {{ profile.location }}</small>
+            </a>
+            <div class="header-actions">
+                <nav aria-label="Main navigation">
+                    {% for item in navigation %}
+                    <a class="nav-link" href="{{ url_for(item.endpoint, _anchor=item.anchor) }}"{% if (request.endpoint == 'projects' and item.endpoint == 'projects') or (request.endpoint == 'index' and item.label == 'Home') %} aria-current="page"{% endif %}>{{ item.label }}</a>
+                    {% endfor %}
+                </nav>
+                <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to light theme" hidden>
+                    <span aria-hidden="true">Theme</span>
+                    <strong data-theme-label>Dark</strong>
+                </button>
+            </div>
+        </header>
+
+        <main id="main" tabindex="-1">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="site-footer">
+            <span>© {{ year }} {{ profile.name }}</span>
+            <span>{{ profile.location }}</span>
+            <a class="text-link back-to-top" href="#main">{{ copy.back_top }} <span aria-hidden="true">↑</span></a>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero-frame" aria-labelledby="hero-title">
+    <div class="frame-rail" aria-hidden="true">
+        <span>I.P.</span>
+        <span>Personal portfolio</span>
+    </div>
+    <div class="hero-stage">
+        <p class="eyebrow hero-label">Mathematics · Python · AI</p>
+        <h1 id="hero-title">
+            <span class="hero-line">Drawn to <em>mathematics.</em></span>
+            <span class="hero-line hero-code"><span>Learning</span> <span>through code.</span></span>
+        </h1>
+        <div class="hero-intro-block">
+            <p class="hero-introduction">{{ profile.introduction }}</p>
+            <div class="hero-actions">
+                <a class="primary-link" href="{{ url_for('projects') }}">{{ copy.projects_link }} <span aria-hidden="true">↗</span></a>
+                <a class="quiet-link" href="{{ links.github }}">GitHub <span aria-hidden="true">↗</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="editorial-section" id="about" aria-labelledby="about-title">
+    <p class="eyebrow section-label">{{ copy.about_heading }}</p>
+    <div class="about-body">
+        <h2 id="about-title">Curiosity, built into practice.</h2>
+        <p class="about-introduction">{{ profile.about }}</p>
+        <div class="about-notes">
+            <p><span>Education</span>{{ profile.education }}<br>{{ profile.next_step }}</p>
+            <p><span>Beyond computing</span>{{ profile.personal }}</p>
+        </div>
+    </div>
+</section>
+
+<section class="project-teaser" id="projects" aria-labelledby="projects-title">
+    <span id="work" class="section-alias" aria-hidden="true"></span>
+    <div>
+        <p class="eyebrow">Selected learning</p>
+        <h2 id="projects-title">Work in progress,<br>kept honest.</h2>
+    </div>
+    <p>{{ copy.projects_intro }}</p>
+    <a class="index-link" href="{{ url_for('projects') }}"><span>{{ copy.projects_link }}</span><span aria-hidden="true">↗</span></a>
+</section>
+
+<section class="elsewhere" aria-labelledby="elsewhere-title">
+    <p class="eyebrow">Contact & elsewhere</p>
+    <div class="elsewhere-content">
+        <h2 id="elsewhere-title">Let’s talk.</h2>
+        <p class="contact-introduction">For project conversations and opportunities, the easiest way to reach me is on LinkedIn.</p>
+        <div class="elsewhere-links">
+            {% if profile.email %}<a class="index-link" href="mailto:{{ profile.email }}"><span>Email me</span><span aria-hidden="true">↗</span></a>{% endif %}
+            {% if links.linkedin %}<a class="index-link contact-link" href="{{ links.linkedin }}"><span>Message me on LinkedIn</span><span aria-hidden="true">↗</span></a>{% endif %}
+            {% if links.github %}<a class="index-link" href="{{ links.github }}"><span>Explore GitHub</span><span aria-hidden="true">↗</span></a>{% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
