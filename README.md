@@ -25,19 +25,32 @@ Start the site:
 
 Open [Homepage](http://127.0.0.1:5000/) or [Projects](http://127.0.0.1:5000/projects). Stop with `Ctrl+C`. If port 5000 is occupied, append `--port 5002` and open that port. Virtual-environment activation is unnecessary. Use Flask rather than Live Server; Jinja templates need Python rendering.
 
-Python 3.10+ is required. Checks used Python 3.14 and Flask 3.1.2. No frontend framework, build pipeline, database, or visitor-time GitHub request is used. Nothing has been deployed.
+Python 3.10+ is required. Checks used Python 3.14 and Flask 3.1.2. No frontend framework, database, server-side state, or visitor-time GitHub request is used. Nothing has been deployed.
 
-## Deploy on Render
+## Export the static site
 
-Create a Python Web Service from this repository with:
+The Flask app only renders public content, so `export_static.py` converts every page into a static site. It writes the homepage, Projects page, custom 404 page, Cloudflare redirect file, and required assets to `dist/`.
 
-```text
-Build command: pip install -r requirements.txt
-Start command: gunicorn app:app
-Health check path: /
+```powershell
+.\.venv\Scripts\python.exe export_static.py
+py -m http.server 8000 --directory dist
 ```
 
-The checked-in site requires no database or environment variables.
+Open `http://127.0.0.1:8000/` and `http://127.0.0.1:8000/projects`. The generated output is replaced on every build, so stale files cannot survive. Cloudflare's `CF_PAGES_URL` build variable is used automatically for the absolute social-preview URL; locally, you can set `SITE_URL` before exporting if needed.
+
+## Deploy on Cloudflare Pages for free
+
+Connect the GitHub repository `IrushaPettanayaka/personal-portfolio` in **Workers & Pages → Create application → Pages → Connect to Git** and use:
+
+```text
+Production branch: main
+Framework preset: None
+Build command: pip install -r requirements.txt && python export_static.py
+Build output directory: dist
+Root directory: /
+```
+
+No environment variables, Pages Functions, database, domain purchase, or paid service is required. Cloudflare supplies `CF_PAGES_URL` during the build. After the first successful deployment, share the generated `https://<project-name>.pages.dev` address. Every push to `main` triggers a new production build; other branches and pull requests receive free preview deployments.
 
 ## Editing
 
@@ -48,8 +61,9 @@ The checked-in site requires no database or environment variables.
 - `static/js/theme.js`: accessible dark/light theme control with guarded local persistence. The small inline script in `base.html` applies a saved choice before the stylesheet paints.
 - `static/css/style.css`: shared dark/light tokens, framed surface treatment, serif headline accent, responsive project rows, visible focus states, and reduced-motion rules.
 - `app.py`: routes. The old Task Tracker detail URL redirects to `/projects#task-tracker`.
+- `export_static.py`: repeatable Cloudflare Pages export. It renders every public route, creates the custom 404 and `_redirects` files, copies required assets, and uses the deployment URL for social metadata.
 - `templates/base.html` and `templates/404.html`: shared shell and missing-page response.
-- `tests/test_app.py`: eleven route, asset, content, inventory, metadata, theme, and fallback checks.
+- `tests/test_app.py` and `tests/test_static_export.py`: route, asset, content, inventory, metadata, theme, fallback, static navigation, direct URL, and repeatability checks.
 
 Keep Jinja autoescaping. The maths widget and its calculation code remain removed. Original screenshots and video are preserved locally but are not shown in the archive. Manrope is served locally as WOFF2 with its license in `static/fonts/OFL.txt`. The 1200 × 630 social preview is `static/images/social-preview.png`.
 
@@ -88,7 +102,7 @@ Repositories:
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-- **Eleven tests passed**: homepage/Projects routes and links, referenced assets, all ten explicit entries, grouped project order, descriptive source links, metadata and social preview, WOFF2 font integrity, category counts, team/AI attribution, theme assets/tokens, optional email, escaping, removed widget, redirect, and 404 behavior.
+- **Seventeen tests passed**: homepage/Projects routes and links, referenced assets, all ten explicit entries, grouped project order, descriptive source links, metadata and social preview, WOFF2 font integrity, category counts, team/AI attribution, theme assets/tokens, optional email, escaping, removed widget, redirect, 404 behavior, static output, direct URLs, asset resolution, and repeatable builds.
 - Browser checks of homepage and Projects at **360px**, **390px**, and desktop. No horizontal overflow; navigation, headline, and project rows adapt cleanly on mobile.
 - Verified the dark and light themes on both pages, keyboard-operated the theme control, navigated between pages, and reloaded to confirm persistence.
 - Operated filters using Tab, Enter, and Space. Counts were All 10, Python practice 6, Course exercises 2, Team projects 1, AI-assisted 1. Both guessing versions remain separate. Refresh returns to All.
@@ -98,4 +112,4 @@ Repositories:
 - Calculated text contrast for the main, secondary, accent, and button text pairs against page/surface backgrounds in both themes: minimum **5.55:1**. This is a palette check, not a full accessibility certification.
 - Inspected browser-loaded reduced-motion CSS: smooth scrolling is disabled and transitions/animations are removed. Native OS reduced-motion emulation was unavailable, so that preference was not directly exercised. Other browser engines, screen readers, and native zoom were not tested.
 
-Screenshots are under `verification/`, outside served assets. No deployment was performed.
+Screenshots are under `verification/`, outside served assets. The static export also omits the locally preserved project screenshots. No deployment was performed.
