@@ -47,7 +47,7 @@ Production branch: main
 Framework preset: None
 Build command: pip install -r requirements.txt && python export_static.py
 Build output directory: dist
-Root directory: /
+Root directory: leave blank (repository root)
 ```
 
 No environment variables, Pages Functions, database, domain purchase, or paid service is required. Cloudflare supplies `CF_PAGES_URL` during the build. After the first successful deployment, share the generated `https://<project-name>.pages.dev` address. Every push to `main` triggers a new production build; other branches and pull requests receive free preview deployments.
