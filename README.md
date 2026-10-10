@@ -1,6 +1,6 @@
 # Irusha Pettanayaka — personal portfolio
 
-A Flask portfolio focused on mathematics, programming, AI, and data engineering. The homepage uses an editorial framed hero built around “Drawn to mathematics. Learning through code.”, followed by a concise About section, a restrained project invitation, and a direct LinkedIn contact path. The separate archive contains ten explicit project entries, grouped into selected work and smaller practice/course exercises, with optional category filters.
+A Flask portfolio focused on mathematics, programming, AI, and data engineering. The homepage uses an editorial framed hero built around “Drawn to mathematics. Learning through code.”, followed by a concise About section, a restrained project invitation, and a direct LinkedIn contact path. The separate archive contains eleven explicit project entries, grouped into selected work and smaller practice/course exercises, with optional category filters.
 
 ## Development and attribution
 
@@ -69,7 +69,7 @@ Keep Jinja autoescaping. The maths widget and its calculation code remain remove
 
 ## Verified inventory and sources
 
-The account's public repository listing and recursive trees were rechecked on 7 October 2026. The four owned repositories and the supplied Aegis team repository were inspected. The small-project trees were not truncated and contained no additional standalone projects beyond those below. Implementation files inside Gesture Defender and Aegis were not treated as separate products.
+The account's public repositories and the supplied Aegis team repository were reviewed before the archive was written. Small exercises remain grouped as practice, while Python Learning Lab is presented as the larger web application it became. Implementation files inside Gesture Defender and Aegis are not treated as separate products.
 
 | Project | Repository / inspected source |
 | --- | --- |
@@ -83,6 +83,7 @@ The account's public repository listing and recursive trees were rechecked on 7 
 | Python Calculator | `PythonProject_Irusha_Pettanayaka`: `Python_calculator/calculator.py` |
 | Aegis Engine | `aasim10-Volt/aegis`: README, `package.json`, `aegis/engine/phase_b_teams.py`, `aegis/engine/phase_c_health.py` |
 | Gesture Defender | `gesture-defender`: README, `requirements.txt`, `hand_tracking.py` |
+| Python Learning Lab | `python-learning-lab`: Flask routes, SQLite layer, service modules, templates, tests, and screenshots |
 
 All eight small Python source files were read in full. Source links in `content.py` point directly to those files. The application entries link to their repositories. Aegis's readme, package dependencies, and team-formation/health source support its short description and technologies. Gesture Defender's readme explicitly discloses substantial Codex assistance; its card uses the user's requested contribution statement. Repository ownership is not presented as proof of independent authorship.
 
@@ -93,6 +94,7 @@ Repositories:
 - [Python calculator repository](https://github.com/IrushaPettanayaka/PythonProject_Irusha_Pettanayaka)
 - [Aegis team repository](https://github.com/aasim10-Volt/aegis)
 - [Gesture Defender](https://github.com/IrushaPettanayaka/gesture-defender)
+- [Python Learning Lab](https://github.com/IrushaPettanayaka/python-learning-lab)
 
 `ZAID-EHT/Aegis-backend` returned 404 from both the public GitHub API and the connected GitHub file read. Its contents and relationship to Aegis could not be verified. No backend link or second product was invented. An accessible repository URL or appropriate connected access is needed before adding that source link.
 
@@ -102,12 +104,12 @@ Repositories:
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-- **Seventeen tests passed**: homepage/Projects routes and links, referenced assets, all ten explicit entries, grouped project order, descriptive source links, metadata and social preview, WOFF2 font integrity, category counts, team/AI attribution, theme assets/tokens, optional email, escaping, removed widget, redirect, 404 behavior, static output, direct URLs, asset resolution, and repeatable builds.
+- **Seventeen tests passed**: homepage/Projects routes and links, referenced assets, all eleven explicit entries, grouped project order, descriptive source links, metadata and social preview, WOFF2 font integrity, category counts, team/AI attribution, theme assets/tokens, optional email, escaping, removed widget, redirect, 404 behavior, static output, direct URLs, asset resolution, and repeatable builds.
 - Browser checks of homepage and Projects at **360px**, **390px**, and desktop. No horizontal overflow; navigation, headline, and project rows adapt cleanly on mobile.
 - Verified the dark and light themes on both pages, keyboard-operated the theme control, navigated between pages, and reloaded to confirm persistence.
-- Operated filters using Tab, Enter, and Space. Counts were All 10, Python practice 6, Course exercises 2, Team projects 1, AI-assisted 1. Both guessing versions remain separate. Refresh returns to All.
+- Operated filters using Tab, Enter, and Space. Counts are All 11, Web applications 1, Python practice 6, Course exercises 2, Team projects 1, and AI-assisted 1. Both guessing versions remain separate. Refresh returns to All.
 - Verified the muted-blue keyboard focus outline on the theme control and filters.
-- Tested `/projects` in a separate local preview with `Content-Security-Policy: script-src 'none'`: the dark theme loaded, all ten entries remained visible, and both theme/filter controls stayed hidden.
+- Tested `/projects` in a separate local preview with `Content-Security-Policy: script-src 'none'`: the dark theme loaded, all eleven entries remained visible, and both theme/filter controls stayed hidden.
 - Normal-preview console logs contained no errors or warnings.
 - Calculated text contrast for the main, secondary, accent, and button text pairs against page/surface backgrounds in both themes: minimum **5.55:1**. This is a palette check, not a full accessibility certification.
 - Inspected browser-loaded reduced-motion CSS: smooth scrolling is disabled and transitions/animations are removed. Native OS reduced-motion emulation was unavailable, so that preference was not directly exercised. Other browser engines, screen readers, and native zoom were not tested.

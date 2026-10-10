@@ -64,14 +64,14 @@ class PortfolioTests(unittest.TestCase):
     def test_complete_archive_without_javascript(self):
         page = PageParser()
         page.feed(self.client.get('/projects').get_data(as_text=True))
-        expected = {'task-tracker', 'number-guesser', 'number-guessing-early',
+        expected = {'python-learning-lab', 'task-tracker', 'number-guesser', 'number-guessing-early',
                     'rock-paper-scissors', 'dice-roller', 'caesar-cipher',
                     'pin-extractor', 'python-calculator', 'aegis-engine', 'gesture-defender'}
         self.assertEqual({c['id'] for c in page.cards}, expected)
         self.assertTrue(all('hidden' not in c for c in page.cards))
         self.assertIn('hidden', page.filters)
-        self.assertEqual(len(page.cards), 10)
-        self.assertEqual(len({p['source_url'] for p in PROJECTS}), 10)
+        self.assertEqual(len(page.cards), 11)
+        self.assertEqual(len({p['source_url'] for p in PROJECTS}), 11)
 
     def test_exact_source_paths_and_distinct_versions(self):
         paths = {p['slug']: p['source_url'] for p in PROJECTS}
@@ -82,10 +82,11 @@ class PortfolioTests(unittest.TestCase):
         self.assertTrue(paths['pin-extractor'].endswith('/pin_extractor/main.py'))
         self.assertTrue(paths['python-calculator'].endswith('/Python_calculator/calculator.py'))
         self.assertEqual(paths['aegis-engine'], 'https://github.com/aasim10-Volt/aegis')
+        self.assertEqual(paths['python-learning-lab'], 'https://github.com/IrushaPettanayaka/python-learning-lab')
 
     def test_categories_and_attribution(self):
         counts = {f['key']: sum(p['filter'] == f['key'] for p in PROJECTS) for f in FILTERS if f['key'] != 'all'}
-        self.assertEqual(counts, {'python': 6, 'course': 2, 'team': 1, 'assisted': 1})
+        self.assertEqual(counts, {'web': 1, 'python': 6, 'course': 2, 'team': 1, 'assisted': 1})
         html = self.client.get('/projects').get_data(as_text=True)
         self.assertIn('Built with substantial Codex assistance; my role involved direction, testing, and small edits.', html)
         self.assertIn('Our Cipher 2.0 team project', html)
@@ -95,10 +96,10 @@ class PortfolioTests(unittest.TestCase):
     def test_project_grouping_and_clear_source_links(self):
         self.assertEqual(
             PROJECT_SECTIONS[0]['slugs'],
-            ['aegis-engine', 'task-tracker', 'python-calculator', 'gesture-defender'],
+            ['python-learning-lab', 'aegis-engine', 'gesture-defender', 'python-calculator'],
         )
         html = self.client.get('/projects').get_data(as_text=True)
-        self.assertLess(html.index('id="aegis-engine"'), html.index('id="task-tracker"'))
+        self.assertLess(html.index('id="python-learning-lab"'), html.index('id="aegis-engine"'))
         self.assertLess(html.index('id="gesture-defender"'), html.index('id="number-guesser"'))
         self.assertIn('Practice &amp; course exercises', html)
         for project in PROJECTS:

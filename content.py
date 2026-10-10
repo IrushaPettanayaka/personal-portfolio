@@ -28,7 +28,7 @@ COPY = {
     "about_heading": "About",
     "focus_heading": "Current focus",
     "projects_heading": "Projects",
-    "projects_intro": "Python practice, course exercises, a team hackathon project, and an AI-assisted experiment — collected in one place.",
+    "projects_intro": "A Flask learning lab, collaborative work, Python practice, and experiments — collected in one place.",
     "projects_link": "View projects",
     "projects_page_intro": "An archive of my learning so far: individual exercises, small applications, and collaborative work.",
     "projects_page_label": "Project archive",
@@ -50,6 +50,7 @@ CURRENT_FOCUS = [
 ]
 FILTERS = [
     {"key": "all", "label": "All"},
+    {"key": "web", "label": "Web applications"},
     {"key": "python", "label": "Python practice"},
     {"key": "course", "label": "Course exercises"},
     {"key": "team", "label": "Team projects"},
@@ -61,19 +62,27 @@ PROJECT_SECTIONS = [
         "key": "selected",
         "label": "Selected work",
         "description": "Applications and collaborative work that best show how I approach a problem.",
-        "slugs": ["aegis-engine", "task-tracker", "python-calculator", "gesture-defender"],
+        "slugs": ["python-learning-lab", "aegis-engine", "gesture-defender", "python-calculator"],
     },
     {
         "key": "practice",
         "label": "Practice & course exercises",
         "description": "Smaller programs that document steady Python practice and course progress.",
-        "slugs": ["number-guesser", "rock-paper-scissors", "caesar-cipher", "pin-extractor", "dice-roller", "number-guessing-early"],
+        "slugs": ["task-tracker", "number-guesser", "rock-paper-scissors", "caesar-cipher", "pin-extractor", "dice-roller", "number-guessing-early"],
     },
 ]
 
 # Keep individual exercises explicit, even when they share a repository.
 # Use the exact file path and case from GitHub. No invented demo links.
 PROJECTS = [
+    {
+        "slug": "python-learning-lab", "title": "Python Learning Lab",
+        "category": "Flask web application", "filter": "web",
+        "summary": "Four beginner Python exercises rebuilt as one interactive application with an SQLite student planner, algorithm visualisations, probability simulation, validation, sessions, and tests.",
+        "technologies": ["Python", "Flask", "SQLite", "Jinja", "JavaScript"],
+        "source_url": "https://github.com/IrushaPettanayaka/python-learning-lab",
+        "note": "Expanded from my original CLI exercises with Codex assistance; I directed the scope, reviewed the behaviour, and kept the original scripts for comparison.",
+    },
     {
         "slug": "task-tracker", "title": "Task Tracker",
         "category": "Python practice", "filter": "python",
