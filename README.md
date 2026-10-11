@@ -73,11 +73,11 @@ The account's public repositories and the supplied Aegis team repository were re
 
 | Project | Repository / inspected source |
 | --- | --- |
-| Task Tracker | `Python_mini_projects`: `task_tracker/task_tracker.py` |
+| Persistent Task Tracker | `Python_mini_projects`: `task_tracker/task_tracker.py` |
 | Number Guesser | `Python_mini_projects`: `number_guesser.py` |
-| Number Guessing: Early Version | `Python_mini_projects`: `Number_guessing.py` |
-| Rock–Paper–Scissors | `Python_mini_projects`: `Rock_paper_scissors.py` |
-| Dice Roller | `Python_mini_projects`: `game.py` |
+| Quick Guess | `Python_mini_projects`: `Number_guessing.py` |
+| Adaptive Rock–Paper–Scissors | `Python_mini_projects`: `Rock_paper_scissors.py` |
+| Dice Lab | `Python_mini_projects`: `game.py` |
 | Caesar Cipher | `FreeCodeCamp_projects_python`: `caesar_cipher/main.py` |
 | PIN Extractor | `FreeCodeCamp_projects_python`: `pin_extractor/main.py` |
 | Python Calculator | `PythonProject_Irusha_Pettanayaka`: `Python_calculator/calculator.py` |
